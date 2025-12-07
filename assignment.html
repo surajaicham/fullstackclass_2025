@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <script>
+        function updateProfile() {
+            // Get input values from each textboxes
+            let nameElement = document.getElementById('name');
+            let lastnameElement = document.getElementById('lastname');
+            let ageElement = document.getElementById('age');
+
+            let name = nameElement.value;
+            let lastname = lastnameElement.value;
+            let age = ageElement.value;
+
+            let table = document.getElementById('user-table');
+            let row = document.createElement('tr');
+            let cell1 = document.createElement('td');
+            cell1.innerText = name;
+            let cell2 = document.createElement('td');
+            cell2.innerText = lastname;
+            let cell3 = document.createElement('td');
+            cell3.innerText = age;
+
+            if (!name || !lastname  || !age ) {
+                alert('Please fill all fields before adding a user.');
+                return;
+            }
+
+            let cell4 = document.createElement('td');
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.onclick = function () {
+                table.removeChild(row);
+            };
+            cell4.appendChild(deleteButton);
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            row.appendChild(cell3);
+            row.appendChild(cell4);
+
+            table.appendChild(row);
+
+            nameElement.value = '';
+            lastnameElement.value = '';
+            ageElement.value = '';
+        }
+    </script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+
+        #user-table th {
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <fieldset>
+            <legend>
+                Profile
+            </legend>
+            <div>
+                <table>
+                    <tr>
+                        <td><label for="name">Enter your name:</label></td>
+                        <td><input type="text" id="name" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="name">Enter your name:</label></td>
+                        <td><input type="text" id="lastname" name="lastname"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="name">Enter your age:</label></td>
+                        <td><input type="number" id="age" name="age"></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <br />
+        <div>
+            <button id="btn-add-user" onclick="updateProfile()">
+                Add User
+            </button>
+        </div>
+        <br />
+    </div>
+    <div>
+        <table id="user-table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Age
+                </th>
+                <th>
+                </th>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
