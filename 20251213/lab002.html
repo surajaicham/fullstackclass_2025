@@ -1,0 +1,239 @@
+<html>
+
+<head>
+    <title>Lab 002</title>
+    <!-- <style>
+        @media (min-width: 992px) and   (max-width: 1200px) {
+            .test-div {
+                height: 200px;
+                width:200px;
+                background-color: red;
+            }
+        }
+        @media (max-width: 992px) {
+            .test-div {
+                height: 200px;
+                width:200px;
+                background-color: yellow;
+            }
+        }
+    </style> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        var products = [
+            {
+                name: "Apple"
+                , price: 20
+                , description: "Fresh red fuji apple"
+                , image: "https://placehold.co/600x400/png"
+            },
+            {
+                name: "Banana"
+                , price: 60
+                , description: "Unripe banana from chiangmai"
+                , image: "https://placehold.co/600x400/png"
+            },
+            {
+                name: "Papaya"
+                , price: 100
+                , description: "Suitable for your Somtum"
+                , image: "https://placehold.co/600x400/png"
+            },
+            {
+                name: "Guava"
+                , price: 40
+                , description: "Sweet green guava"
+                , image: "https://placehold.co/600x400/png"
+            }
+        ];
+
+        function addToCart() {
+            //Show modal dialog
+            var myModal = new bootstrap.Modal(document.getElementById('sample-modal'));
+            myModal.show();
+        }
+
+        function searchProduct() {
+            //Get product container and clear the value
+            var container = document.getElementById("product-list");
+            container.innerHTML = "";
+
+            var input = document.getElementById("input-keyword");
+            var keyword = input.value;
+            var filteredProducts = [];
+
+            for (var i = 0; i < products.length; i++) {
+                var product = products[i];
+
+                //Filter product by name
+                if (product.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
+                    filteredProducts.push(product);
+                }
+            }
+
+            if (filteredProducts.length == 0) {
+                //Show toast message
+                var toastEl = document.getElementById('toast-container');
+                var toast = new bootstrap.Toast(toastEl);
+                toast.show();
+                return;
+            }
+
+            for (var i = 0; i < filteredProducts.length; i++) {
+                var product = filteredProducts[i];
+                //grave accent (accent mark) symbol na krub.
+                var itemTemplate = ` 
+                    <div class="col-xs-12 col-md-4 col-lg-12 p-3">
+                        <div class="card shadow-sm">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-4">
+                                    <img src="${product.image}" class="card-img-top" />
+                                </div>
+                                <div class="col-md-12 col-lg-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.name}</h5>
+                                        <p class="card-text text-muted">
+                                            ${product.description}
+                                        </p>
+                                        <h6 class="text-success">THB ${product.price}</h6>
+                                        <a href="#" class="btn btn-danger" onclick="addToCart()"> Add to Cart </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = container.innerHTML + itemTemplate;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            searchProduct();
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container my-4">
+        <h1>Fruit Shop</h1>
+        <div class="row">
+            <div class="col-12 form">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="input-keyword" placeholder="Search for..." />
+                    <button class="btn btn-primary" type="button" onclick="searchProduct()"
+                        id="button-search">Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="product-list">
+
+        </div>
+    </div>
+
+    <!-- Toast Example -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div class="toast" role="alert" id="toast-container">
+            <div class="toast-header">
+                <h5>Alert!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                Product not found.
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Example-->
+    <div class="modal fade" id="sample-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>>
+                <div class="modal-body">
+                    Are you sure to do this?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" 
+                            data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" 
+                            data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="test-div" ">
+        Media Query Sample
+    </div> -->
+
+    <!-- Grid System Sample-->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4 col-lg-12 p-3">
+                <div class="card shadow-sm">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-4">
+                            <img src="https://placehold.co/600x400/png" class="card-img-top" />
+                        </div>
+                        <div class="col-md-12 col-lg-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Card titleProduct 015</h5>
+                                <p class="card-text text-muted">
+                                    My product 01
+                                </p>
+                                <h6 class="text-success">THB 300</h6>
+                                <a href="#" class="btn btn-danger"> Add to Cart </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Sample-->
+        <div class="row">
+            <div class="col-12">
+                <h2>Form sample</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="mb-3">
+                        <label for "input-name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="input-name" placeholder="Your name" />
+                    </div>
+                    <div class="mb-3">
+                        <label for "input-country" class="form-label">Country</label>
+                        <select class="form-select" id="input-country">
+                            <option value="">-- Please select --</option>
+                            <option value="th">Thailand</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hobby</label>
+                        <div class="form-check form-check-inline"">
+                            <input type=" checkbox" class="form-check-input" id="hobby-reading" value="reading" />
+                        <label for="hobby-reading" class="form-check-label">
+                            Reading
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline"">
+                            <input type=" checkbox" class="form-check-input" id="hobby-reading" value="Swimming" />
+                    <label for="hobby-reading" class="form-check-label">
+                        Swimming
+                    </label>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
