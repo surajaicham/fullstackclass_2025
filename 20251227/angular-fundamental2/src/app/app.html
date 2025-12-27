@@ -1,0 +1,13 @@
+  <div>
+    Current Value: {{ getCurrentValue() }}
+  </div>
+  <div>
+    <button (click)="increase()"> Increase </button> &nbsp;
+    <button (click)="decrease()"> Decrease </button>
+  </div>
+
+  <div>
+    <a routerLink="/form-demo">Go to form demo</a>
+  </div>
+  <router-outlet>
+  </router-outlet>
