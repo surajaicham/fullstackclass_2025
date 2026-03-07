@@ -1,0 +1,36 @@
+<main class="main">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">Menu</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white" aria-current="page">
+          Home
+        </a>
+      </li>
+      <li>
+        <a routerLink="/actor" class="nav-link text-white">
+          Setup Actor
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      @if(!isLoggedIn) {
+        <strong>Please login!</strong>
+      } @else {
+        <div>
+          <span>Welcome, {{currentUser}}!</span>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="flex-fill d-flex flex-column p-3" style="overflow-y: auto;">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+    
+  </div>
+</main>

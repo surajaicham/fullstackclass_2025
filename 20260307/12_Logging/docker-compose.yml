@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: logging_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dvdrental
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./DB/dvdrental.tar:/docker-entrypoint-initdb.d/dvdrental.tar
+      - ./DB/account_script.sql:/docker-entrypoint-initdb.d/account_script.sql
+      - ./DB/init.sh:/docker-entrypoint-initdb.d/init.sh
+    networks:
+      - logging_network
+
+  api:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    container_name: logging_api
+    restart: always
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: dvdrental
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - logging_network
+
+  web:
+    build:
+      context: ./Web
+      dockerfile: Dockerfile
+    container_name: logging_web
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - logging_network
+
+volumes:
+  db_data:
+
+networks:
+  logging_network:
+    driver: bridge
